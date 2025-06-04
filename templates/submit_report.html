@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>አዲስ ሪፖርት አስገባ</h2>
+    <form method="POST" action="{{ url_for('submit_report') }}" enctype="multipart/form-data">
+        <label for="year">ዓመት</label>
+        <select id="year" name="year" required>
+            {% for year in range(2017, 2031) %}
+                <option value="{{ year }}">{{ year }} ዓ.ም</option>
+            {% endfor %}
+        </select>
+        
+        <label for="quarter">ሩብ ዓመት</label>
+        <select id="quarter" name="quarter" required>
+            <option value="1ኛ ሩብ ዓመት">1ኛ ሩብ ዓመት</option>
+            <option value="2ኛ ሩብ ዓመት">2ኛ ሩብ ዓመት</option>
+            <option value="3ኛ ሩብ ዓመት">3ኛ ሩብ ዓመት</option>
+            <option value="4ኛ ሩብ ዓመት">4ኛ ሩብ ዓመት</option>
+        </select>
+        
+        <label for="title">የሪፖርት ርዕስ</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="description">መግለጫ (አማራጭ)</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+        
+        <label for="file">ሪፖርት ፋይል (PDF, Word, Excel)</label>
+        <input type="file" id="file" name="file" required>
+        <small>PDF, DOC, DOCX, XLS, XLSX ፋይሎችን ብቻ ይምረጡ</small>
+        
+        <button type="submit" class="btn">ሪፖርት አስገባ</button>
+    </form>
+{% endblock %}

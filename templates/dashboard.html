@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>የሪፖርቶች ዝርዝር</h2>
+    
+    {% if session['is_main_office'] %}
+        <p>ዋና ቢሮ - የሁሉንም ወረዳዎች ሪፖርቶች ማየት ይችላሉ</p>
+    {% else %}
+        <p>ወረዳ {{ session['district'] }} - የእርስዎን ሪፖርቶች ብቻ ማየት ይችላሉ</p>
+    {% endif %}
+    
+    <a href="{{ url_for('submit_report') }}" class="btn">አዲስ ሪፖርት አስገባ</a>
+    
+    {% if reports %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ርዕስ</th>
+                    <th>ወረዳ</th>
+                    <th>ዓመት</th>
+                    <th>ሩብ ዓመት</th>
+                    <th>የተላከበት ቀን</th>
+                    <th>ድርጊት</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.title }}</td>
+                        <td>{{ report.district }}</td>
+                        <td>{{ report.year }} ዓ.ም</td>
+                        <td>{{ report.quarter }}</td>
+                        <td>{{ report.submitted_at.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <a href="{{ url_for('view_report', report_id=report.id) }}" class="btn">ተመልከት</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>ምንም ሪፖርት አልተገኘም</p>
+    {% endif %}
+{% endblock %}

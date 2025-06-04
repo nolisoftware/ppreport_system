@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>የሪፖርት መላላኪያ ሲስተም</title>
+    <style>
+        body {
+            font-family: 'Nyala', 'Arial', sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 310px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .system-title {
+            color: #2E86C1;
+            text-decoration: underline;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #2E86C1;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #1B4F72;
+        }
+        .flash-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #D5F5E3;
+            color: #27AE60;
+        }
+        .danger {
+            background-color: #FADBD8;
+            color: #E74C3C;
+        }
+        .warning {
+            background-color: #FDEBD0;
+            color: #F39C12;
+        }
+        .info {
+            background-color: #D6EAF8;
+            color: #2980B9;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #2E86C1;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+            <h1 class="system-title">በድሬዳዋ አስተዳደር የብልጽግና ፓርቲ ቅ/ጽ/ቤት የሪፖርት መላላኪያ ሲስተም</h1>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ url_for('home') }}" class="btn">ወደ ዋና ገጽ ተመለስ</a>
+        </div>
+    </div>
+</body>
+</html>
